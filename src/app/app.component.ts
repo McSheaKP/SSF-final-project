@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { StockfilterService } from './stockfilter.service';
+import { StockFilterService } from './stockfilter.service';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
 
 @Component({
   selector: 'app-root',
@@ -9,11 +11,12 @@ import { StockfilterService } from './stockfilter.service';
 
 export class AppComponent {
   title = 'app';
+ 
 
 
- constructor(private _sfs: StockfilterService){}
+ constructor(private _sfs: StockFilterService){}
  ngOnInit(){
-    this._sfs.getData()
-    .subscribe( data => console.log(data))
+    // this._sfs.getData()
+    // .subscribe( data => console.log(data))
   }
 }
