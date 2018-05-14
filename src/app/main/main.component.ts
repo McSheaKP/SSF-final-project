@@ -18,7 +18,7 @@ export class MainComponent implements OnInit {
     this._sfs.getData().subscribe(data => {
       console.log('Data:', data)
       this.stockData = data;
-      console.log('Set stock data:', this.stockData)
+      console.log('Set stock data:', this.stockData["Time Series (Daily)"]["2017-12-18"])
     });
   }
   
