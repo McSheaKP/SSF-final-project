@@ -39,11 +39,14 @@ constructor(private http: HttpClient) { }
                     //console.log("2nd Chained", data);
                     
                     return stocks.map( stock => {
-                        return stock.slice(0,5)
+                         return Number(stock.slice(0,5));
+                         
                     })
                     
-                })    
+                }),
                 
+                map((stocks: any) => [{data: stocks , label: "Open Amount" }]
+                )
                 
                 
                 
