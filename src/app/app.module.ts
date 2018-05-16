@@ -10,13 +10,16 @@ import { LoginComponent } from './login/login.component';
 import { HeaderComponent } from './header/header.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ChartsModule } from 'ng2-charts';
+import { RegisterComponent } from './register/register.component';
+import { AppUserService } from './app-user.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainComponent,
     LoginComponent,
-    HeaderComponent
+    HeaderComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +29,7 @@ import { ChartsModule } from 'ng2-charts';
     FormsModule,
     ChartsModule
   ],
-  providers: [StockFilterService],
+  providers: [StockFilterService, AppUserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

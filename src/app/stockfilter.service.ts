@@ -11,7 +11,7 @@ constructor(private http: HttpClient) { }
     apiKey = "DA65TS7P9O57VGZH"
     exampleUrl = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=MSFT&apikey=demo" 
 
-    
+   
     
     getData(){
     return this.http.get(this.exampleUrl)
@@ -19,39 +19,38 @@ constructor(private http: HttpClient) { }
         
             pluck("Time Series (Daily)"),    
                 
-                //map to access the indivudal array and datatype to access it
-                map((data: any) => {
-                    console.log("mapped data: ", data);
-                    
-                    let openStock = [];
-                    
-                    for( let key in data ){
-                        
-                        //look into the let key in key to make the program more robust and remove the "1. open" point
-                        openStock.push( data[key]["1. open"] );
-                    
-                    }
-                    return openStock;
-                }),
+            //takes the data and pushing each key and property into an empty array returns array
+            map((data: any) => {
+                console.log("mapped data: ", data);
                 
-                map((stocks: any) => {
+                let openStock = [];
+                //let closedStock = [];
+                
+                for( let key in data ){
                     
-                    //console.log("2nd Chained", data);
+                    //look into the let key in key to make the program more robust and remove the "1. open" point
+                    openStock.push( data[key]["1. open"] );
+                    //closedStock.push( data[key]["2. high"])
                     
-                    return stocks.map( stock => {
-                         return Number(stock.slice(0,5));
-                         
-                    })
-                    
-                }),
+                }
+                return openStock;
+            }),
                 
-                map((stocks: any) => [{data: stocks , label: "Open Amount" }]
-                )
+            map((stocks: any) => {
                 
+                //console.log("2nd Chained", data);
                 
+                return stocks.map( stock => {
+                     return Number(stock.slice(0,5));
+                     
+                })
                 
-                
+            }),
+            
+            map((stocks: any) => [{data: [...stocks] , label: "Open Amount" }]
             )
+            
+        )
      
 
     //take int he data object and pull of the property open and push into an array
