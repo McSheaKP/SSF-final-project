@@ -11,6 +11,7 @@ constructor(private http: HttpClient) { }
     apiKey = "DA65TS7P9O57VGZH"
     exampleUrl = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=MSFT&apikey=demo" 
 
+    
    
     
     getData(){
@@ -21,43 +22,47 @@ constructor(private http: HttpClient) { }
                 
             //takes the data and pushing each key and property into an empty array returns array
             map((data: any) => {
+                
                 console.log("mapped data: ", data);
                 
                 let openStock = [];
-                //let closedStock = [];
+                let highStock = [];
+                let lowStock = [];
+                let closeStock = [];
+                let dailyVolume = [];
+                
                 
                 for( let key in data ){
-                    
-                    //look into the let key in key to make the program more robust and remove the "1. open" point
-                    openStock.push( data[key]["1. open"] );
-                    //closedStock.push( data[key]["2. high"])
+                    //Takes each property in the object/array and parses the numbers for the respective properties into 2 decimel rounded nubmers
+                    openStock.push(Number((data[key]["1. open"]).slice(0,5)));
+                    highStock.push(Number((data[key]["2. high"]).slice(0,5)));
+                    lowStock.push(Number((data[key]["3. low"]).slice(0,5)));
+                    closeStock.push(Number((data[key]["4. close"]).slice(0,5)));
+                    dailyVolume.push(Number((data[key]["5. volume"]).slice(0,5)));
                     
                 }
-                return openStock;
-            }),
                 
-            map((stocks: any) => {
+                 
+                    //This is the format needed for the charts import
+                let stockData = [
+                    {data: [], label: "Open Amount"},
+                    {data: [], label: "Closed Amount"},
+                    {data: [], label: "Daily High"},
+                    {data: [], label: "Daily Low"},
+                    {data: [], label: "Daily Volume Traded"}
+                ]   
                 
-                //console.log("2nd Chained", data);
-                
-                return stocks.map( stock => {
-                     return Number(stock.slice(0,5));
-                     
-                })
-                
-            }),
+                stockData[0].data = openStock;
+                stockData[1].data = closeStock;
+                stockData[2].data = highStock;
+                stockData[3].data = lowStock;
+                stockData[4].data = dailyVolume;
             
-            map((stocks: any) => [{data: [...stocks] , label: "Open Amount" }]
-            )
             
-        )
-     
+                return stockData;
+            }),
 
-    //take int he data object and pull of the property open and push into an array
-    //use for each method to hit each of the properties named
-    
-    
-    
-   
+        )
+
   }
 }

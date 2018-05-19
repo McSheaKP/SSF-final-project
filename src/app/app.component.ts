@@ -16,7 +16,7 @@ export class AppComponent {
 
  constructor(private _sfs: StockFilterService){}
  ngOnInit(){
-    // this._sfs.getData()
-    // .subscribe( data => console.log(data))
+    this._sfs.getData()
+     .subscribe( data => console.log("Testing Data is correct",data))
   }
 }

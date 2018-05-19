@@ -1,3 +1,37 @@
 <p>
   register works!
 </p>
+<h2>Please Register</h2>
+
+<div class="form-group">
+    
+    
+     <input class="firstName" 
+        type="text" 
+        placeholder="First Name"
+        [(ngModel)]="user.firstName"
+        name="email"
+        [ngModelOptions]="{standalone: true}"/>
+    
+    <input class="lastName" 
+        type="text" 
+        placeholder="lastName"
+        [(ngModel)]="user.lastName"
+        name="lastName"
+        [ngModelOptions]="{standalone: true}"/>
+    
+    <input class="email" 
+        type="text" 
+        placeholder="Email"
+        [(ngModel)]="user.email"
+        name="email"
+        [ngModelOptions]="{standalone: true}"/>
+    
+    <input class="password" 
+          type="password" 
+          placeholder="Password"
+          [(ngModel)]="user.password"
+          name="password"
+          [ngModelOptions]="{standalone: true}"/>
+</div>
+<button type="submit" (click)="doRegister()">Submit</button>
