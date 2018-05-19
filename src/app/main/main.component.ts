@@ -13,6 +13,8 @@ export class MainComponent implements OnInit {
   constructor(private _sfs: StockFilterService){}
   
   stockData: any;
+  userStock: string;
+  title: string = "Demo";
 
    // lineChart
   public lineChartData:Array<any> = 
@@ -50,6 +52,7 @@ export class MainComponent implements OnInit {
       pointHoverBackgroundColor: '#fff',
       pointHoverBorderColor: 'rgba(148,159,177,0.8)'
     }
+    
   ];
   public lineChartLegend:boolean = true;
   public lineChartType:string = 'line';
@@ -74,19 +77,24 @@ export class MainComponent implements OnInit {
     console.log(e);
   }
   
+  getStocks(){
+    this.lookupStock();
+    console.log("Stock Data works in component", this.stockData);
+    this.lineChartData = this.stockData.stockData;
+    this.title = this.userStock;
+    this.userStock = "";
+  }
+  
   lookupStock(){
-   this.lineChartData = this.stockData;
+    this._sfs.getData(this.userStock)
+    .subscribe(data => {
+        this.stockData = data;
+    })
   }
   
   
 
   ngOnInit() {
-    //testing the parsed data is useable and displayable
-    this._sfs.getData()
-    .subscribe(data => {
-        this.stockData = data;
-        console.log("Stock data is displayed", this.stockData)
-      })
     
     
   }

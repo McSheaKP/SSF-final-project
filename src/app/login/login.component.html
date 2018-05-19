@@ -1,3 +1,17 @@
-<p>
-  login works!
-</p>
+<div class="form-group">
+    
+    <input class="email" 
+        type="text" 
+        placeholder="Email"
+        [(ngModel)]="user.email"
+        name="email"
+        [ngModelOptions]="{standalone: true}"/>
+    
+    <input class="password" 
+          type="password" 
+          placeholder="Password"
+          [(ngModel)]="user.password"
+          name="password"
+          [ngModelOptions]="{standalone: true}"/>
+</div>
+<button type="submit" (click)="doLogin()">Submit</button>

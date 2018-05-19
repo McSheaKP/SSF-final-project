@@ -8,14 +8,16 @@ import { filter, map, reduce, pluck } from 'rxjs/operators';
 @Injectable()
 export class StockFilterService {
 constructor(private http: HttpClient) { }
-    apiKey = "DA65TS7P9O57VGZH"
-    exampleUrl = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=MSFT&apikey=demo" 
-
+    apiKey = "&apikey=DA65TS7P9O57VGZH"
+    exampleUrl = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=MSFT&apikey=demo";
+    url = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=";
+    
     
    
     
-    getData(){
-    return this.http.get(this.exampleUrl)
+    getData(stockID){
+        
+    return this.http.get(this.url + stockID + this.apiKey)
         .pipe(
         
             pluck("Time Series (Daily)"),    
@@ -30,35 +32,41 @@ constructor(private http: HttpClient) { }
                 let lowStock = [];
                 let closeStock = [];
                 let dailyVolume = [];
+                let dates = [];
                 
                 
                 for( let key in data ){
                     //Takes each property in the object/array and parses the numbers for the respective properties into 2 decimel rounded nubmers
+                    
                     openStock.push(Number((data[key]["1. open"]).slice(0,5)));
                     highStock.push(Number((data[key]["2. high"]).slice(0,5)));
                     lowStock.push(Number((data[key]["3. low"]).slice(0,5)));
                     closeStock.push(Number((data[key]["4. close"]).slice(0,5)));
                     dailyVolume.push(Number((data[key]["5. volume"]).slice(0,5)));
                     
+                    
+                  
                 }
                 
-                 
+                dates = Object.keys(data);
                     //This is the format needed for the charts import
-                let stockData = [
-                    {data: [], label: "Open Amount"},
-                    {data: [], label: "Closed Amount"},
-                    {data: [], label: "Daily High"},
-                    {data: [], label: "Daily Low"},
-                    {data: [], label: "Daily Volume Traded"}
-                ]   
+                let stockData = {
+                    stockData: [
+                        {data: [], label: "Open Amount"},
+                        {data: [], label: "Closed Amount"},
+                        {data: [], label: "Daily High"},
+                        {data: [], label: "Daily Low"},
+                        {data: [], label: "Daily Volume Traded"},
+                    ],
+                    dateData: dates
+                };
+                stockData.stockData[0].data = openStock;
+                stockData.stockData[1].data = closeStock;
+                stockData.stockData[2].data = highStock;
+                stockData.stockData[3].data = lowStock;
+                stockData.stockData[4].data = dailyVolume;
                 
-                stockData[0].data = openStock;
-                stockData[1].data = closeStock;
-                stockData[2].data = highStock;
-                stockData[3].data = lowStock;
-                stockData[4].data = dailyVolume;
-            
-            
+                console.log("This is stock data", stockData);
                 return stockData;
             }),
 

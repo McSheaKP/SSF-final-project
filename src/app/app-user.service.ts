@@ -20,4 +20,8 @@ export class AppUserService {
    register(user){
     return this.http.post(this.url+"/appUsers", user);
    }
+   
+   login(user){
+    return this.http.post(this.url+"/appUsers/login", user);
+   }
 }
