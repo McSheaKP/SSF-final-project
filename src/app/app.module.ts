@@ -14,6 +14,7 @@ import { RegisterComponent } from './register/register.component';
 
 import { AppUserService } from './app-user.service';
 import { StockFilterService } from './stockfilter.service';
+import { LoggedComponent } from './logged/logged.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { StockFilterService } from './stockfilter.service';
     MainComponent,
     LoginComponent,
     HeaderComponent,
-    RegisterComponent
+    RegisterComponent,
+    LoggedComponent
   ],
   imports: [
     BrowserModule,

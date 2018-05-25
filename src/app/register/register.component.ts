@@ -14,6 +14,7 @@ export class RegisterComponent implements OnInit {
   
   constructor(private _aus: AppUserService){}
   
+ 
   user: any = {
     firstName: "",
     lastName: "",
@@ -24,8 +25,17 @@ export class RegisterComponent implements OnInit {
   userData: any;
   
   doRegister(){
-    this._aus.register(this.user).subscribe(data => console.log("User registered", data));
-    this.deleteRegister();
+    this._aus.register(this.user)  
+       .subscribe( (res: any) => {
+             console.log(res)
+             sessionStorage.setItem('token', res.token);
+             sessionStorage.setItem('userId', res.userId);
+             let token = sessionStorage.getItem('token');
+             let userId = sessionStorage.getItem('userId');
+             console.log("user token", token);
+             console.log("user id", userId)
+    })
+            
   }
   
   deleteRegister(){
@@ -36,7 +46,8 @@ export class RegisterComponent implements OnInit {
   }
   
   ngOnInit() {
-    this._aus.register(this._aus.user).subscribe(data => console.log(data));
+    
+    
   }
 
 }

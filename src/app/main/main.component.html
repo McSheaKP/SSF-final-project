@@ -24,7 +24,8 @@
         <td *ngFor="let label of lineChartLabels; let j=index">{{d && d.data[j]}}</td>
       </tr>
     </table>
-    <button (click)="getStocks()"> Lookup Stock </button>
-    <input class = "number" type = "text" [(ngModel)]= "userStock" >
+    
   </div>
 </div>
+<button (click)="getStocks()"> Lookup Stock </button>
+<input class = "number" type = "text" [(ngModel)]= "userStock" >

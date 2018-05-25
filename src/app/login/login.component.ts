@@ -11,7 +11,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private _aus: AppUserService){}
+  constructor(private _aus: AppUserService, private router: Router ){}
 
   user: any = {
     email: "",
@@ -19,8 +19,22 @@ export class LoginComponent implements OnInit {
   }
 
   doLogin(){
-    this._aus.register(this.user).subscribe(data => console.log("User Logged In", data));
-    this.deleteLogin();
+    this._aus.login(this.user)  
+       .subscribe( (res: any) => {
+             console.log(res)
+             sessionStorage.setItem('token', res.token);
+             sessionStorage.setItem('userId', res.userId);
+             let token = sessionStorage.getItem('token');
+             let userId = sessionStorage.getItem('userId');
+             console.log("user token", token);
+             console.log("user id", userId);
+             this.gotoLoggedIn();
+             
+    })
+  }
+  
+  gotoLoggedIn() {
+    this.router.navigate(['/heroes']);
   }
   
   deleteLogin(){

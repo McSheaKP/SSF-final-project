@@ -15,15 +15,18 @@ export class MainComponent implements OnInit {
   stockData: any;
   userStock: string;
   title: string = "Demo";
+  stockDates: any;
 
    // lineChart
   public lineChartData:Array<any> = 
   [
     {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'},
     {data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B'},
-    {data: [18, 48, 77, 9, 100, 27, 40], label: 'Series C'}
+    {data: [18, 48, 77, 9, 100, 27, 40], label: 'Series C'},
+    {data: [45, 20, 10, 5, 176, 33, 60], label: 'Series D'}
+    
   ];
-  public lineChartLabels:Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  public lineChartLabels:Array<any> = [];
   public lineChartOptions:any = {
     responsive: true
   };
@@ -78,23 +81,35 @@ export class MainComponent implements OnInit {
   }
   
   getStocks(){
-    this.lookupStock();
-    console.log("Stock Data works in component", this.stockData);
-    this.lineChartData = this.stockData.stockData;
+    
+    this._sfs.getData(this.userStock)
+      .subscribe( data => {
+          this.lineChartData = data.stockData;
+          console.log("line date data", data.dateData);
+          this.stockDates = data.dateData;
+           console.log("line chart data", this.lineChartData);
+           
+      }, err => {
+        //when the data does not come back do this
+      })
+    
+    //console.log("Stock Data works in component", this.stockData);
+    //this.lineChartData = this.stockData;
+   
     this.title = this.userStock;
     this.userStock = "";
-  }
-  
-  lookupStock(){
-    this._sfs.getData(this.userStock)
-    .subscribe(data => {
-        this.stockData = data;
-    })
+    this.lineChartLabels = this.stockDates;
+    console.log("line chart labels22", this.lineChartLabels)
+    
   }
   
   
 
   ngOnInit() {
+    this._sfs.getData(this.userStock)
+    .subscribe(data => {
+        console.log("data is displayed onit", data)
+    })
     
     
   }
