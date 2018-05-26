@@ -11,10 +11,11 @@ import { MainComponent } from './main/main.component';
 import { LoginComponent } from './login/login.component';
 import { HeaderComponent } from './header/header.component';
 import { RegisterComponent } from './register/register.component';
+import { LoggedComponent } from './logged/logged.component';
 
 import { AppUserService } from './app-user.service';
 import { StockFilterService } from './stockfilter.service';
-import { LoggedComponent } from './logged/logged.component';
+
 
 @NgModule({
   declarations: [

@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
   }
   
   gotoLoggedIn() {
-    this.router.navigate(['/heroes']);
+    this.router.navigate(['logged']);
   }
   
   deleteLogin(){
@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._aus.login(this._aus.user).subscribe(data => console.log(data));
+    
   }
 
 }

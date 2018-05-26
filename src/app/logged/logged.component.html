@@ -1,3 +1,8 @@
 <p>
-  logged works!
+Click the button to add a stock to your favorites
+  
+<button (click)="addStock()"> Add Stock </button>
+<input class = "number" type = "text" [(ngModel)]= "stock.ticker" >
+
+<button (click)="getUserStocks()"> Get User Stocks </button>
 </p>
