@@ -1,8 +1,58 @@
-<p>
-Click the button to add a stock to your favorites
-  
-<button (click)="addStock()"> Add Stock </button>
-<input class = "number" type = "text" [(ngModel)]= "stock.ticker" >
 
-<button (click)="getUserStocks()"> Get User Stocks </button>
-</p>
+<div class="main-container">
+    
+    <div class="content-container">
+        <div class="content-area">
+            <div class="row">
+                <div class="col-xs-10">
+                    <h2>
+                        {{"Welcome " + userData.firstName}}
+                    </h2>
+                    <span>4</span>
+                </div>
+                <div class="col-xs-6">
+                    <span>6</span>
+                </div>
+                <div class="col-xs-2">
+                    <span>2</span>
+                </div>
+            </div>
+            
+            <button (click)="addStock()"> Add Stock </button>
+            <input class = "number" type = "text" [(ngModel)]= "stock.ticker" >
+            
+            <button (click)="getUserStocks()"> Get User Stocks </button>
+
+            ...
+        </div>
+        <nav class="sidenav">
+            <section class="sidenav-content">
+                <a href="..." class="nav-link active">
+                    Nav Element 1
+                </a>
+                <a href="..." class="nav-link">
+                    Nav Element 2
+                </a>
+                <section class="nav-group collapsible">
+                    <input id="tabexample1" type="checkbox">
+                    <label for="tabexample1">Collapsible Nav Element</label>
+                    <ul class="nav-list">
+                        <li><a class="nav-link">Link 1</a></li>
+                        <li><a class="nav-link">Link 2</a></li>
+                    </ul>
+                </section>
+                <section class="nav-group">
+                    <input id="tabexample2" type="checkbox">
+                    <label for="tabexample2">Favorited Stocks</label>
+                    <ul class="nav-list">
+                        <li *ngFor = "let ticker of savedStocks"> <a class="nav-link">{{ ticker.ticker }} </a> 
+                        <button (click) = "onDelete(ticker.ticker)" >delete</button>
+                        </li>
+                    </ul>
+                </section>
+            
+            </section>
+        </nav>
+    </div>
+    
+</div>

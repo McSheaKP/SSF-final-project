@@ -17,31 +17,22 @@ export class LoggedComponent implements OnInit {
     ticker: "",
   }
   
+  savedStocks: any;
+  userData: any;
+  
   addStock(){
-    this._aus.favStock(this.stock)  
-      // .subscribe( (res: any) => {
-      //       console.log(res)
-      //       sessionStorage.setItem('token', res.token);
-      //       sessionStorage.setItem('userId', res.userId);
-      //       let token = sessionStorage.getItem('token');
-      //       let userId = sessionStorage.getItem('userId');
-      //       console.log("user token", token);
-      //       console.log("user id", userId)
-    
-            
-  }
-  getUserStocks(){
-    this._aus.getUserStocks()
+    this._aus.favStock(this.stock)
       .subscribe( (res: any) => {
-             console.log("these are the stocks for userID", res)
-      //       sessionStorage.setItem('token', res.token);
-      //       sessionStorage.setItem('userId', res.userId);
-      //       let token = sessionStorage.getItem('token');
-      //       let userId = sessionStorage.getItem('userId');
-      //       console.log("user token", token);
-      //       console.log("user id", userId)
-      
-    })
+        console.log("showing the result of add stock", res);
+      })
+  }
+  
+  onDelete(ticker){
+    
+  }
+  
+  getUserStocks(){
+    
   }
   
   
@@ -54,9 +45,17 @@ export class LoggedComponent implements OnInit {
   ngOnInit() {
     
     //Upon initialization we want to pull user data and push data into the dom
-      // this._aus.logged(userId)  
-      // .subscribe( (res: any) => {
-      //       console.log('showing the get call from  aus',res);
+      this._aus.logged()  
+        .subscribe( (res: any) => {
+             console.log('showing the get call from  aus',res);
+             this.userData = res;
+      })       
+      this._aus.getUserStocks()
+      .subscribe( (res: any) => {
+             console.log("these are the stocks for userID", res)
+            this.savedStocks = res;
+            console.log("stcoks are saved",this.savedStocks)
+      })       
              
               
     // })
@@ -64,6 +63,7 @@ export class LoggedComponent implements OnInit {
     //Upon initilization we want to pull stock data associated with that 
     
     
-  }
+    
 
+  }
 }
