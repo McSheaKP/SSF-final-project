@@ -4,22 +4,37 @@
     <div class="content-container">
         <div class="content-area">
             <div class="row">
-                <div class="col-xs-10">
-                    <h2>
-                        {{"Welcome " + userData.firstName}}
-                    </h2>
+                <div class="col-lg-7">
+                    <div style="display: block;">
+                    <canvas baseChart width="400" height="400"
+                                [datasets]="lineChartData"
+                                [labels]="lineChartLabels"
+                                [options]="lineChartOptions"
+                                [colors]="lineChartColors"
+                                [legend]="lineChartLegend"
+                                [chartType]="lineChartType"
+                                (chartHover)="chartHovered($event)"
+                                (chartClick)="chartClicked($event)"></canvas>
+                    </div>
+                    
                     <span>4</span>
                 </div>
-                <div class="col-xs-6">
-                    <span>6</span>
+                <div class="col-lg-10">
+                    <span><table class="table table-responsive table-condensed">
+                              <tr>
+                               <th *ngFor="let label of lineChartLabels">{{label}}</th>
+                              </tr>
+                              <tr *ngFor="let d of lineChartData">
+                                <td *ngFor="let label of lineChartLabels; let j=index">{{d && d.data[j]}}</td>
+                              </tr>
+                            </table></span>
                 </div>
-                <div class="col-xs-2">
+                <div class="col-lg-0">
                     <span>2</span>
                 </div>
             </div>
             
-            <button (click)="addStock()"> Add Stock </button>
-            <input class = "number" type = "text" [(ngModel)]= "stock.ticker" >
+            
             
             <button (click)="getUserStocks()"> Get User Stocks </button>
 
@@ -27,26 +42,24 @@
         </div>
         <nav class="sidenav">
             <section class="sidenav-content">
-                <a href="..." class="nav-link active">
-                    Nav Element 1
+                <h3 class = "welcome"> {{"Welcome " + userData.firstName}} </h3>
+                <a (click) = "logOut()" class="nav-link active">
+                    LogOut
                 </a>
+                <div class = "addstock">
+                    <button (click)="addStock()"> Add Stock </button>
+                    <input class = "number" type = "text" [(ngModel)]= "stock.ticker" >
+                </div>                        
                 <a href="..." class="nav-link">
                     Nav Element 2
                 </a>
-                <section class="nav-group collapsible">
-                    <input id="tabexample1" type="checkbox">
-                    <label for="tabexample1">Collapsible Nav Element</label>
-                    <ul class="nav-list">
-                        <li><a class="nav-link">Link 1</a></li>
-                        <li><a class="nav-link">Link 2</a></li>
-                    </ul>
-                </section>
+                
                 <section class="nav-group">
                     <input id="tabexample2" type="checkbox">
                     <label for="tabexample2">Favorited Stocks</label>
                     <ul class="nav-list">
-                        <li *ngFor = "let ticker of savedStocks"> <a class="nav-link">{{ ticker.ticker }} </a> 
-                        <button (click) = "onDelete(ticker.ticker)" >delete</button>
+                        <li *ngFor = "let stock of savedStocks"> <button (click) = "getStocks(stock.ticker)">{{ stock.ticker }} </button> 
+                        <button (click) = "onDelete(stock)"> delete </button>
                         </li>
                     </ul>
                 </section>

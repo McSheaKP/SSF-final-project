@@ -87,7 +87,7 @@ export class MainComponent implements OnInit {
           this.lineChartData = data.stockData;
           console.log("line date data", data.dateData);
           this.stockDates = data.dateData;
-           console.log("line chart data", this.lineChartData);
+           console.log("line chart data", this.lineChartLabels);
            
       }, err => {
         //when the data does not come back do this
