@@ -16,6 +16,10 @@ export class MainComponent implements OnInit {
   userStock: string;
   title: string = "Demo";
   stockDates: any;
+  
+  stockLookup: any = {
+    ticker: "",
+  }
 
    // lineChart
   public lineChartData:Array<any> = 
@@ -26,7 +30,7 @@ export class MainComponent implements OnInit {
     {data: [45, 20, 10, 5, 176, 33, 60], label: 'Series D'}
     
   ];
-  public lineChartLabels:Array<any> = [];
+  public lineChartLabels:Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
   public lineChartOptions:any = {
     responsive: true
   };
@@ -80,15 +84,15 @@ export class MainComponent implements OnInit {
     console.log(e);
   }
   
-  getStocks(){
+  lookUpStocks(ticker){
     
-    this._sfs.getData(this.userStock)
+    this._sfs.getData(ticker)
       .subscribe( data => {
           this.lineChartData = data.stockData;
           console.log("line date data", data.dateData);
           this.stockDates = data.dateData;
            console.log("line chart data", this.lineChartLabels);
-           
+           this.title = ticker;
       }, err => {
         //when the data does not come back do this
       })

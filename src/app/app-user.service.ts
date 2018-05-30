@@ -10,7 +10,7 @@ export class AppUserService {
   
   url:string = "http://kevin-q2-2018-phortonssf.c9users.io:8080/api";
   appUsersUrl: string = "/appUsers/";
-
+  loginToggle: false; 
   user: any = {
       firstName: "TesterUserName",
       lastName: "TestLast",
@@ -58,6 +58,10 @@ export class AppUserService {
    deleteUserStock(stockId){
      let userId = sessionStorage.getItem("userId");
      return this.http.delete(this.url + this.appUsersUrl + userId + "/stocks/" + stockId)
+   }
+   
+   loginToggle(){
+    this.loggedIn: true;
    }
    
    

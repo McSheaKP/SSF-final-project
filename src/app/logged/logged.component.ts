@@ -17,6 +17,10 @@ export class LoggedComponent implements OnInit {
     ticker: "",
   }
   
+  stockLookup: any = {
+    ticker: "",
+  }
+  
   savedStocks: any;
   userData: any;
   
@@ -117,11 +121,26 @@ export class LoggedComponent implements OnInit {
           console.log("line date data", data.dateData);
           this.lineChartLabels = data.dateData;
            console.log("line chart data", this.lineChartLabels);
-           
+          this.title = ticker;
+          this.stock.ticker = ""; 
       }, err => {
         //when the data does not come back do this
       })
+  }
+  
+  lookUpStocks(ticker){
     
+    this._sfs.getData(ticker)
+      .subscribe( data => {
+          this.lineChartData = data.stockData;
+          console.log("line date data", data.dateData);
+          this.lineChartLabels = data.dateData;
+          console.log("line chart data", this.lineChartLabels);
+          this.title = ticker;
+          this.stockLookup.ticker = ""; 
+      }, err => {
+        //when the data does not come back do this
+      })  
     //console.log("Stock Data works in component", this.stockData);
     //this.lineChartData = this.stockData;
     }
