@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { StockFilterService } from '../stockfilter.service';
 import { Observable } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
+import { SpinnerComponent } from "../spinner/spinner.component";
 
 @Component({
   selector: 'app-main',

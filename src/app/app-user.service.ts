@@ -17,9 +17,7 @@ export class AppUserService {
       email: "test1234@gmail.com",
       password: "1234"
   }
-
-   
-
+  
    register(user){
     return this.http.post(this.url+"/appUsers", user);
    }
@@ -28,33 +26,24 @@ export class AppUserService {
     return this.http.post(this.url+"/appUsers/login", user);
    }
    
-   
-   //'http://kevin-q2-2018-phortonssf.c9users.io:8080/api/appUsers/5afe37584f12ae4f476f8efd'
    logged(){
     let userId = sessionStorage.getItem("userId");
-    console.log("user")
     return this.http.get(this.url+this.appUsersUrl + userId);
    }
 
-   //http://kevin-q2-2018-phortonssf.c9users.io:8080/api/appUsers/5afe37584f12ae4f476f8efd/stocks
+   
 
    favStock(stock){
     let userId = sessionStorage.getItem("userId");
-    
-    console.log("fav stock userID", userId)
-    console.log("fav stock STOCK", stock)
-    console.log(this.url + this.appUsersUrl + userId + "/stocks", stock);
     return this.http.post(this.url + this.appUsersUrl + userId + "/stocks", stock);
    }
    
-   //http://kevin-q2-2018-phortonssf.c9users.io:8080/api/appUsers/ 5afe37584f12ae4f476f8efd/stocks
+   
    getUserStocks(){
     let userId = sessionStorage.getItem("userId");
     return this.http.get(this.url + this.appUsersUrl + userId + "/stocks/")
    }
    
-   //http://kevin-q2-2018-phortonssf.c9users.io:8080/api/appUsers/5afe37584f12ae4f476f8efd/stocks/5b0c581c2f069da84dbb2b67
-   //http://kevin-q2-2018-phortonssf.c9users.io:8080/api/appUsers/5afe37584f12ae4f476f8efd/stocks/ 5b0c58f32f069da84dbb2b69
    deleteUserStock(stockId){
      let userId = sessionStorage.getItem("userId");
      return this.http.delete(this.url + this.appUsersUrl + userId + "/stocks/" + stockId)
@@ -66,10 +55,6 @@ export class AppUserService {
    
    logOutToggle(){
     this.loggedIn = false;
-    
    }
-   
-   
-   
    
 }

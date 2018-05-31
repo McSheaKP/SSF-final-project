@@ -18,7 +18,7 @@ export class LoggedComponent implements OnInit {
     ticker: "",
   }
   
-  chartSwitch: boolean = false;
+  chartSwitch: boolean = true;
   
   stockLookup: any = {
     ticker: "",

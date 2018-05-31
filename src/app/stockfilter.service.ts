@@ -742,8 +742,6 @@ demoData = {
             //takes the data and pushing each key and property into an empty array returns array
             map((data: any) => {
                 
-                console.log("mapped data: ", data);
-                
                 let openStock = [];
                 let highStock = [];
                 let lowStock = [];
@@ -754,8 +752,6 @@ demoData = {
                 for( let key in data ){
                     //Takes each property in the object/array and parses the numbers for the respective properties into 2 decimel rounded nubmers
                     
-                    
-                    
                     openStock.push(Number((data[key]["1. open"]).slice(0,5)));
                     highStock.push(Number((data[key]["2. high"]).slice(0,5)));
                     lowStock.push(Number((data[key]["3. low"]).slice(0,5)));
@@ -763,9 +759,6 @@ demoData = {
                     dailyVolume.push(Number((data[key]["5. volume"])));
                   
                 }
-                
-                
-                
                 
                 let stockData = {
                     //This is the format needed for the charts import
@@ -777,8 +770,7 @@ demoData = {
                         {data: [], label: "Daily Volume Traded"},
                     ],
                     dateData: [],
-                    dateMonths: [],
-                    stkMonthAvg: []
+                    
                 };
                 
                 stockData.stockData[0].data = openStock;
@@ -787,13 +779,6 @@ demoData = {
                 stockData.stockData[3].data = lowStock;
                 stockData.stockData[4].data = dailyVolume;
                 stockData.dateData = Object.keys(data);
-                
-                
-                
-                console.log("This is stock data", stockData);
-                
-                
-                
                 
                 return stockData;
             }),
