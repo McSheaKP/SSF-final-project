@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { StockFilterService } from '../stockfilter.service';
 import { AppUserService } from '../app-user.service';
 import { HttpClient } from '@angular/common/http';
+import { SpinnerComponent } from "../spinner/spinner.component";
 
 @Component({
   selector: 'app-logged',
@@ -16,6 +17,8 @@ export class LoggedComponent implements OnInit {
   stock: any = {
     ticker: "",
   }
+  
+  chartSwitch: boolean = false;
   
   stockLookup: any = {
     ticker: "",
@@ -37,7 +40,7 @@ export class LoggedComponent implements OnInit {
     {data: [45, 20, 10, 5, 176, 33, 60], label: 'Series D'}
     
   ];
-  public lineChartLabels:Array<any> = [];
+  public lineChartLabels:Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
   public lineChartOptions:any = {
     responsive: true
   };
@@ -99,6 +102,7 @@ export class LoggedComponent implements OnInit {
     this._aus.favStock(this.stock)
      .subscribe( (res: any) => {
           this.savedStocks.push(res);
+          this.stock.ticker = ""
     })
       
   }
@@ -114,22 +118,7 @@ export class LoggedComponent implements OnInit {
   }
   
   getStocks(ticker){
-    
-    this._sfs.getData(ticker)
-      .subscribe( data => {
-          this.lineChartData = data.stockData;
-          console.log("line date data", data.dateData);
-          this.lineChartLabels = data.dateData;
-           console.log("line chart data", this.lineChartLabels);
-          this.title = ticker;
-          this.stock.ticker = ""; 
-      }, err => {
-        //when the data does not come back do this
-      })
-  }
-  
-  lookUpStocks(ticker){
-    
+    this.chartSwitch = false;
     this._sfs.getData(ticker)
       .subscribe( data => {
           this.lineChartData = data.stockData;
@@ -137,7 +126,28 @@ export class LoggedComponent implements OnInit {
           this.lineChartLabels = data.dateData;
           console.log("line chart data", this.lineChartLabels);
           this.title = ticker;
-          this.stockLookup.ticker = ""; 
+          this.stock.ticker = "";
+          this.chartSwitch = true;
+      }, err => {
+        //when the data does not come back do this
+      })
+  }
+  
+  chartToggle(){
+    this.chartSwitch = true;
+  }
+  
+  lookUpStocks(ticker){
+    this.chartSwitch = false;
+    this._sfs.getData(ticker)
+      .subscribe( data => {
+          this.lineChartData = data.stockData;
+          console.log("line date data", data.dateData);
+          this.lineChartLabels = data.dateData;
+          console.log("line chart data", this.lineChartLabels);
+          this.title = ticker;
+          this.stockLookup.ticker = "";
+          this.chartSwitch = true;
       }, err => {
         //when the data does not come back do this
       })  
@@ -146,10 +156,11 @@ export class LoggedComponent implements OnInit {
     }
   
   
-  // create a log out function that routes back to the main page and clears the session
+  
   logOut(){
     sessionStorage.removeItem('token');
     sessionStorage.removeItem('userId');
+    this._aus.logOutToggle();
     this._router.navigate(['']);
   }
   
@@ -166,7 +177,7 @@ export class LoggedComponent implements OnInit {
       .subscribe( (res: any) => {
              console.log("these are the stocks for userID", res)
             this.savedStocks = res;
-            console.log("stcoks are saved",this.savedStocks)
+            console.log("stocks are saved",this.savedStocks)
       })       
              
               

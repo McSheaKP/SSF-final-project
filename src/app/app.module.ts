@@ -15,6 +15,7 @@ import { LoggedComponent } from './logged/logged.component';
 
 import { AppUserService } from './app-user.service';
 import { StockFilterService } from './stockfilter.service';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { StockFilterService } from './stockfilter.service';
     LoginComponent,
     HeaderComponent,
     RegisterComponent,
-    LoggedComponent
+    LoggedComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,

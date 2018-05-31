@@ -10,7 +10,7 @@ export class AppUserService {
   
   url:string = "http://kevin-q2-2018-phortonssf.c9users.io:8080/api";
   appUsersUrl: string = "/appUsers/";
-  loginToggle: false; 
+  loggedIn: boolean = false; 
   user: any = {
       firstName: "TesterUserName",
       lastName: "TestLast",
@@ -61,8 +61,15 @@ export class AppUserService {
    }
    
    loginToggle(){
-    this.loggedIn: true;
+    this.loggedIn = true;
    }
+   
+   logOutToggle(){
+    this.loggedIn = false;
+    
+   }
+   
+   
    
    
 }

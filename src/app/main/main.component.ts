@@ -12,6 +12,8 @@ export class MainComponent implements OnInit {
   
   constructor(private _sfs: StockFilterService){}
   
+  chartSwitch: boolean = true;
+  
   stockData: any;
   userStock: string;
   title: string = "Demo";
@@ -84,28 +86,24 @@ export class MainComponent implements OnInit {
     console.log(e);
   }
   
-  lookUpStocks(ticker){
-    
+  
+   lookUpStocks(ticker){
+    this.chartSwitch = false;
     this._sfs.getData(ticker)
       .subscribe( data => {
           this.lineChartData = data.stockData;
-          console.log("line date data", data.dateData);
-          this.stockDates = data.dateData;
-           console.log("line chart data", this.lineChartLabels);
-           this.title = ticker;
+          this.lineChartLabels = data.dateData;
+          this.title = ticker;
+          this.stockLookup.ticker = "";
+          this.chartSwitch = true;
       }, err => {
         //when the data does not come back do this
-      })
-    
+      })  
     //console.log("Stock Data works in component", this.stockData);
     //this.lineChartData = this.stockData;
-   
-    this.title = this.userStock;
-    this.userStock = "";
-    this.lineChartLabels = this.stockDates;
-    console.log("line chart labels22", this.lineChartLabels)
-    
-  }
+    }
+  
+
   
   
 

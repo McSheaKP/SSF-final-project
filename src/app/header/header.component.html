@@ -5,9 +5,9 @@
         </a>
     </div>
     <div class="header-nav">
-        <a href="..." routerLink="register" class="active nav-link"><span class="nav-text">Register</span></a>
-        <a href="..." routerLink="login" class="active nav-link"><span class="nav-text">Login</span></a>
-        <a href="..." routerLink="logged" class="active nav-link"><span class="nav-text">Logged Test</span></a>
+        <a *ngIf="!_aus.loggedIn" routerLink="register" class="active nav-link"><span class="nav-text">Register</span></a>
+        <a *ngIf="!_aus.loggedIn" routerLink="login" class="active nav-link"><span class="nav-text">Login</span></a>
+        <a *ngIf="_aus.loggedIn"  routerLink="logged" class="active nav-link"><span class="nav-text"> Saved Stocks </span></a>
     </div>
 </header>
 

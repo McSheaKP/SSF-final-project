@@ -12,7 +12,8 @@ export class RegisterComponent implements OnInit {
 
   
   
-  constructor(private _aus: AppUserService){}
+  constructor(private _aus: AppUserService, private router: Router){}
+  
   
  
   user: any = {
@@ -32,12 +33,14 @@ export class RegisterComponent implements OnInit {
              sessionStorage.setItem('userId', res.userId);
              let token = sessionStorage.getItem('token');
              let userId = sessionStorage.getItem('userId');
-             console.log("user token", token);
-             console.log("user id", userId)
+             this.gotoLogin();
+             
     })
             
   }
-  
+  gotoLogin() {
+              this.router.navigate(['login']);
+  }
   deleteRegister(){
     this.user.firstName = "";
     this.user.lastName = "";

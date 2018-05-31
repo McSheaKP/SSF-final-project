@@ -32,6 +32,7 @@ export class LoginComponent implements OnInit {
              console.log("user id", userId);
              this._aus.loginToggle;
              this.gotoLoggedIn();
+             this._aus.loggedIn = true;
              
     })
   }
