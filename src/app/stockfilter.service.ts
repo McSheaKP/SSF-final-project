@@ -779,7 +779,6 @@ demoData = {
                 stockData.stockData[3].data = lowStock;
                 stockData.stockData[4].data = dailyVolume;
                 stockData.dateData = Object.keys(data);
-                
                 return stockData;
             }),
 
